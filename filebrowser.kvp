@@ -10,7 +10,7 @@
 App.DisplayName=File Browser
 App.RootDir=./GenericApplication/
 App.WorkingDir=./GenericApplication/
-App.ExecutableLinux=./filebrowser
+App.ExecutableLinux=filebrowser
 App.ExecutableWin=filebrowser.exe
 App.HasWriteableConsole=False
 App.HasReadableConsole=True
