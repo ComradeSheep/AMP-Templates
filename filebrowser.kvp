@@ -1,0 +1,83 @@
+# ==============================================================================
+# AMP GenericModule Template - File Browser
+# https://github.com/filebrowser/filebrowser
+#
+# Single Go binary. No dependencies. No database server. No shell wrappers.
+# AMP manages the process directly.
+# ==============================================================================
+
+# ── Application ────────────────────────────────────────────────────────────────
+App.DisplayName=File Browser
+App.RootDir=./filebrowser/
+App.WorkingDir=./filebrowser/
+App.ExecutableLinux=./filebrowser
+App.ExecutableWin=filebrowser.exe
+App.HasWriteableConsole=False
+App.HasReadableConsole=True
+App.ExitMethod=OS_CLOSE
+App.RapidStartup=True
+
+# ── Ports ──────────────────────────────────────────────────────────────────────
+# ApplicationPort1 is automatically assigned by AMP and exposed here as $ApplicationPort1.
+App.ApplicationPort1=8080
+
+# ── Command line ───────────────────────────────────────────────────────────────
+# -a 0.0.0.0   : bind all interfaces (AMP default is loopback - must override)
+# -p            : port from AMP's assigned port
+# -r            : files root from user setting
+# -d            : database path, kept in the instance root alongside the binary
+# --log stdout  : ensures AMP console captures all output
+# --disableExec : disables the built-in shell command runner (security best practice)
+App.CommandLineArgs=-a 0.0.0.0 -p {{$ApplicationPort1}} -r {{FilesRoot}} -d ./filebrowser.db --log stdout --disableExec {{$FormattedArgs}}
+
+# Windows uses the same flags
+App.LinuxCommandLineArgs=
+App.WindowsCommandLineArgs=
+
+# ── App settings (exposed in AMP UI via config.json) ──────────────────────────
+App.AppSettings={"FilesRoot":"./files","BrandingName":"File Browser","DisableThumbnails":"false","DisablePreviewResize":"false"}
+
+# ── Update / Install stages ────────────────────────────────────────────────────
+# Stage 1 (Linux) : Download latest release tarball from GitHub, extract
+# Stage 2 (Windows): Download latest release zip from GitHub, extract
+# Stage 3 (Linux) : Mark binary executable
+# No further stages needed - filebrowser bootstraps its own database on first run
+# and prints the generated admin password directly to the AMP console.
+App.UpdateSources=[{"UpdateStageName":"Download File Browser (Linux)","UpdateSourcePlatform":"Linux","UpdateSource":"GithubRelease","UpdateSourceArgs":"filebrowser/filebrowser","UpdateSourceData":"linux-amd64-filebrowser.tar.gz","UnzipUpdateSource":true,"OverwriteExistingFiles":true},{"UpdateStageName":"Download File Browser (Windows)","UpdateSourcePlatform":"Windows","UpdateSource":"GithubRelease","UpdateSourceArgs":"filebrowser/filebrowser","UpdateSourceData":"windows-amd64-filebrowser.zip","UnzipUpdateSource":true,"OverwriteExistingFiles":true},{"UpdateStageName":"Set Executable Flag","UpdateSourcePlatform":"Linux","UpdateSource":"SetExecutableFlag","UpdateSourceArgs":"filebrowser"}]
+
+# ── Console ────────────────────────────────────────────────────────────────────
+# Matches: "2024/01/01 12:00:00 Listening on [::]:8080" or "Listening on 0.0.0.0:8080"
+Console.AppReadyRegex=^.*Listening on .+:\d+.*$
+
+# Suppress noisy HTTP request log lines from the AMP console view
+Console.ThrowawayMessageRegex=^.*\"(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS) .*$
+
+# ── Meta ───────────────────────────────────────────────────────────────────────
+Meta.DisplayName=File Browser
+Meta.Description=Web-based file manager with drag-and-drop upload, user management, and share links
+Meta.Author=Community
+Meta.URL=https://filebrowser.org
+Meta.OS=Windows, Linux
+Meta.Arch=All
+Meta.AarchSupport=Native
+Meta.AppConfigId=4a1f8c2e-93d7-4b05-ae61-7f2d09c5b831
+Meta.ConfigRoot=filebrowser.kvp
+Meta.ConfigManifest=filebrowserconfig.json
+Meta.MinAMPVersion=2.5.0.0
+Meta.ConfigVersion=1
+Meta.ConfigReleaseState=NotSpecified
+Meta.ReleaseNotes=
+Meta.BreakingReleaseNotes=
+Meta.DockerRequired=False
+Meta.SpecificDockerImage=
+Meta.ContainerPolicy=NoPreference
+Meta.ContainerPolicyReason=
+Meta.ExtraSetupStepsURI=
+Meta.NoCommercialUsage=False
+Meta.AppIsMultiIPAware=False
+Meta.ImportableExtensions=[]
+Meta.Prerequisites=[]
+Meta.ExtraContainerPackages=[]
+Meta.DisplayImageSource=url:https://raw.githubusercontent.com/filebrowser/logo/master/logo.svg
+Meta.EndpointURIFormat=http://{0}
+App.SmartExcludeExemptions=["*.cfg","*.conf","*.config","*.ini","*.json","*.xml","*.properties","*.kvp","*.yml","*.yaml","*.toml","*.lua"]

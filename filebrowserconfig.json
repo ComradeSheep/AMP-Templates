@@ -1,0 +1,53 @@
+[
+    {
+        "DisplayName": "Files Root Directory",
+        "Description": "The directory File Browser will serve. Relative paths are resolved from the instance root. You can point this at any directory on the host that the AMP user can read.",
+        "FieldName": "FilesRoot",
+        "InputType": "text",
+        "Category": "File Browser",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "./files",
+        "Placeholder": "./files",
+        "Required": true
+    },
+    {
+        "DisplayName": "Site Name",
+        "Description": "For reference only. To change branding, log in to the File Browser web UI and navigate to Settings > Branding. This setting is not applied automatically by AMP.",
+        "FieldName": "BrandingName",
+        "InputType": "text",
+        "Category": "File Browser",
+        "IncludeInCommandLine": false,
+        "DefaultValue": "File Browser",
+        "Placeholder": "My Files"
+    },
+    {
+        "DisplayName": "Disable Image Thumbnails",
+        "Description": "Prevents File Browser from generating image thumbnails. Useful on low-resource hosts. Takes effect on next Start.",
+        "FieldName": "DisableThumbnails",
+        "InputType": "checkbox",
+        "Category": "Performance",
+        "IncludeInCommandLine": true,
+        "ParamFieldName": "disableThumbnails",
+        "IsFlagArgument": true,
+        "EnumValues": {
+            "False": "",
+            "True": "--disableThumbnails"
+        },
+        "DefaultValue": "False"
+    },
+    {
+        "DisplayName": "Disable Preview Resize",
+        "Description": "Prevents File Browser from resizing image previews. Reduces CPU usage at the cost of larger preview images. Takes effect on next Start.",
+        "FieldName": "DisablePreviewResize",
+        "InputType": "checkbox",
+        "Category": "Performance",
+        "IncludeInCommandLine": true,
+        "ParamFieldName": "disablePreviewResize",
+        "IsFlagArgument": true,
+        "EnumValues": {
+            "False": "",
+            "True": "--disablePreviewResize"
+        },
+        "DefaultValue": "False"
+    }
+]
