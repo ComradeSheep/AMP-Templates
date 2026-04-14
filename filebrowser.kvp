@@ -38,12 +38,13 @@ App.WindowsCommandLineArgs=
 App.AppSettings={"FilesRoot":"./files","BrandingName":"File Browser","DisableThumbnails":"false","DisablePreviewResize":"false"}
 
 # ── Update / Install stages ────────────────────────────────────────────────────
-# Stage 1 (Linux) : Download latest release tarball from GitHub, extract
-# Stage 2 (Windows): Download latest release zip from GitHub, extract
-# Stage 3 (Linux) : Mark binary executable
+# Stage 1 (Linux) : Download latest release tarball from GitHub
+# Stage 2 (Linux) : Extract the tarball (AMP cannot natively extract .tar.gz)
+# Stage 3 (Windows): Download latest release zip from GitHub, extract
+# Stage 4 (Linux) : Mark binary executable
 # No further stages needed - filebrowser bootstraps its own database on first run
 # and prints the generated admin password directly to the AMP console.
-App.UpdateSources=[{"UpdateStageName":"Download File Browser (Linux)","UpdateSourcePlatform":"Linux","UpdateSource":"GithubRelease","UpdateSourceArgs":"filebrowser/filebrowser","UpdateSourceData":"linux-amd64-filebrowser.tar.gz","UnzipUpdateSource":true,"OverwriteExistingFiles":true},{"UpdateStageName":"Download File Browser (Windows)","UpdateSourcePlatform":"Windows","UpdateSource":"GithubRelease","UpdateSourceArgs":"filebrowser/filebrowser","UpdateSourceData":"windows-amd64-filebrowser.zip","UnzipUpdateSource":true,"OverwriteExistingFiles":true},{"UpdateStageName":"Set Executable Flag","UpdateSourcePlatform":"Linux","UpdateSource":"SetExecutableFlag","UpdateSourceArgs":"filebrowser"}]
+App.UpdateSources=[{"UpdateStageName":"Download File Browser (Linux)","UpdateSourcePlatform":"Linux","UpdateSource":"GithubRelease","UpdateSourceArgs":"filebrowser/filebrowser","UpdateSourceData":"linux-amd64-filebrowser.tar.gz"},{"UpdateStageName":"Extract Archive (Linux)","UpdateSourcePlatform":"Linux","UpdateSource":"Executable","UpdateSourceData":"tar","UpdateSourceArgs":"-xzf linux-amd64-filebrowser.tar.gz"},{"UpdateStageName":"Download File Browser (Windows)","UpdateSourcePlatform":"Windows","UpdateSource":"GithubRelease","UpdateSourceArgs":"filebrowser/filebrowser","UpdateSourceData":"windows-amd64-filebrowser.zip","UnzipUpdateSource":true,"OverwriteExistingFiles":true},{"UpdateStageName":"Set Executable Flag","UpdateSourcePlatform":"Linux","UpdateSource":"SetExecutableFlag","UpdateSourceArgs":"filebrowser"}]
 
 # ── Console ────────────────────────────────────────────────────────────────────
 # Matches: "2024/01/01 12:00:00 Listening on [::]:8080" or "Listening on 0.0.0.0:8080"
