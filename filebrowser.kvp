@@ -8,8 +8,8 @@
 
 # ── Application ────────────────────────────────────────────────────────────────
 App.DisplayName=File Browser
-App.RootDir=./filebrowser/
-App.WorkingDir=./filebrowser/
+App.RootDir=./GenericApplication/
+App.WorkingDir=./GenericApplication/
 App.ExecutableLinux=./filebrowser
 App.ExecutableWin=filebrowser.exe
 App.HasWriteableConsole=False
